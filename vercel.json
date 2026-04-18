@@ -1,5 +1,1 @@
-{
-  "rewrites": [
-    { "source": "/dashboard", "destination": "/dashboard_maries_merveille_dannick.html" }
-  ]
-}
+{}
