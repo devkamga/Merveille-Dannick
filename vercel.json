@@ -1,7 +1,5 @@
 {
-  "cleanUrls": true,
   "rewrites": [
-    { "source": "/", "destination": "/site_merveille_dannick.html" },
     { "source": "/dashboard", "destination": "/dashboard_maries_merveille_dannick.html" }
   ]
 }
