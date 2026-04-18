@@ -1,8 +1,623 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
 <meta charset="UTF-8"/>
-<meta http-equiv="refresh" content="0; url=/dashboard_maries_merveille_dannick.html"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Dashboard Mariés — Merveille & Dannick</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Cinzel:wght@400;600;700&family=Cinzel+Decorative:wght@400;700&family=Great+Vibes&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bx:#4A0A12; --bm:#6B0F1A; --bl:#8B1A2A;
+  --or:#C9A84C; --orl:#E8C97A; --orp:#F5E6B8; --ord:#A07830;
+  --iv:#FAF6EE; --ivm:#F0E8D8; --ivd:#EDE0C4;
+  --green:#2D6A4F; --greenl:#52B788; --red:#C1121F; --redl:#FF6B6B;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Cormorant Garamond',serif;
+  background:var(--ivd);
+  color:var(--bx);
+  min-height:100vh;
+}
+
+/* ── LOGIN ── */
+#loginScreen{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(145deg,var(--bx) 0%,var(--bm) 60%,var(--bl) 100%);
+  position:relative;overflow:hidden;
+}
+#loginScreen::before{
+  content:'';position:absolute;inset:0;
+  background:repeating-linear-gradient(45deg,
+    transparent 0,transparent 28px,rgba(201,168,76,0.05) 28px,rgba(201,168,76,0.05) 30px);
+}
+.login-card{
+  position:relative;z-index:1;
+  background:rgba(250,246,238,0.06);
+  border:1px solid rgba(201,168,76,0.35);
+  border-radius:16px;
+  padding:48px 40px;
+  text-align:center;
+  width:min(400px,92vw);
+  backdrop-filter:blur(12px);
+  box-shadow:0 24px 80px rgba(0,0,0,0.4);
+}
+.login-crown{font-size:3rem;display:block;margin-bottom:12px;animation:bob 3s ease-in-out infinite;}
+@keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+.login-title{
+  font-family:'Great Vibes',cursive;
+  font-size:2.4rem;color:var(--orl);margin-bottom:4px;
+}
+.login-sub{
+  font-family:'Cinzel',serif;font-size:0.62rem;
+  letter-spacing:0.25em;color:var(--orp);
+  text-transform:uppercase;margin-bottom:32px;opacity:0.7;
+}
+.login-label{
+  display:block;text-align:left;
+  font-family:'Cinzel',serif;font-size:0.6rem;
+  letter-spacing:0.2em;color:var(--orl);
+  text-transform:uppercase;margin-bottom:6px;
+}
+.login-input{
+  width:100%;padding:13px 18px;
+  background:rgba(255,255,255,0.08);
+  border:1px solid rgba(201,168,76,0.3);
+  border-radius:8px;color:var(--orp);
+  font-family:'Cormorant Garamond',serif;font-size:1rem;
+  outline:none;transition:border-color 0.2s;margin-bottom:20px;
+}
+.login-input:focus{border-color:var(--or);}
+.login-input::placeholder{color:rgba(245,230,184,0.3);}
+.login-btn{
+  width:100%;padding:14px;
+  background:linear-gradient(135deg,var(--ord),var(--or),var(--orl));
+  border:none;border-radius:40px;
+  color:#fff;font-family:'Cinzel',serif;
+  font-size:0.78rem;font-weight:600;
+  letter-spacing:0.15em;text-transform:uppercase;
+  cursor:pointer;
+  box-shadow:0 4px 20px rgba(0,0,0,0.3);
+  transition:transform 0.2s,box-shadow 0.2s;
+}
+.login-btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,0,0,0.4);}
+.login-error{
+  color:var(--redl);font-style:italic;font-size:0.9rem;
+  margin-top:12px;display:none;
+}
+
+/* ── DASHBOARD ── */
+#dashboard{display:none;}
+
+/* Header */
+.dash-header{
+  background:linear-gradient(135deg,var(--bx),var(--bm));
+  padding:24px 40px;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:16px;
+  border-bottom:3px solid var(--or);
+  position:sticky;top:0;z-index:50;
+  box-shadow:0 4px 24px rgba(74,10,18,0.4);
+}
+.dash-brand{display:flex;align-items:center;gap:14px;}
+.dash-crown-icon{font-size:2rem;}
+.dash-brand-text{}
+.dash-brand-name{
+  font-family:'Great Vibes',cursive;
+  font-size:1.8rem;color:var(--orl);line-height:1;
+}
+.dash-brand-sub{
+  font-family:'Cinzel',serif;font-size:0.55rem;
+  letter-spacing:0.25em;color:var(--orp);opacity:0.7;
+  text-transform:uppercase;
+}
+.dash-header-right{display:flex;align-items:center;gap:16px;}
+.dash-date{
+  font-family:'Cinzel',serif;font-size:0.65rem;
+  letter-spacing:0.15em;color:var(--orp);opacity:0.8;
+}
+.btn-logout{
+  padding:8px 20px;
+  background:rgba(255,255,255,0.08);
+  border:1px solid rgba(201,168,76,0.4);
+  border-radius:20px;color:var(--orl);
+  font-family:'Cinzel',serif;font-size:0.6rem;
+  letter-spacing:0.12em;cursor:pointer;
+  transition:background 0.2s;
+}
+.btn-logout:hover{background:rgba(255,255,255,0.15);}
+
+/* Main */
+.dash-main{max-width:1100px;margin:0 auto;padding:40px 24px;}
+
+/* Stat cards */
+.stats-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;margin-bottom:40px;
+}
+.stat-card{
+  background:var(--iv);
+  border-radius:12px;padding:28px 24px;
+  border:1px solid rgba(201,168,76,0.2);
+  box-shadow:0 4px 20px rgba(74,10,18,0.08);
+  position:relative;overflow:hidden;
+  transition:transform 0.3s,box-shadow 0.3s;
+}
+.stat-card:hover{transform:translateY(-4px);box-shadow:0 8px 32px rgba(74,10,18,0.14);}
+.stat-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:4px;
+}
+.stat-card.total::before{background:linear-gradient(90deg,var(--or),var(--orl));}
+.stat-card.present::before{background:linear-gradient(90deg,var(--green),var(--greenl));}
+.stat-card.absent::before{background:linear-gradient(90deg,var(--red),var(--redl));}
+.stat-icon{font-size:2.2rem;display:block;margin-bottom:12px;}
+.stat-num{
+  font-family:'Cinzel Decorative',serif;
+  font-size:2.8rem;font-weight:700;
+  line-height:1;margin-bottom:6px;
+}
+.stat-card.total .stat-num{color:var(--ord);}
+.stat-card.present .stat-num{color:var(--green);}
+.stat-card.absent .stat-num{color:var(--red);}
+.stat-label{
+  font-family:'Cinzel',serif;font-size:0.65rem;
+  letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--bl);opacity:0.7;
+}
+
+/* Filtres & recherche */
+.table-controls{
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:16px;margin-bottom:24px;
+}
+.filter-tabs{display:flex;gap:8px;flex-wrap:wrap;}
+.filter-tab{
+  padding:8px 20px;border-radius:24px;
+  font-family:'Cinzel',serif;font-size:0.62rem;
+  letter-spacing:0.12em;text-transform:uppercase;
+  cursor:pointer;border:1.5px solid var(--ivd);
+  background:var(--iv);color:var(--bl);
+  transition:all 0.2s;
+}
+.filter-tab.active,.filter-tab:hover{
+  background:var(--bx);color:var(--orl);
+  border-color:var(--bx);
+}
+.filter-tab.green.active{background:var(--green);border-color:var(--green);}
+.filter-tab.red.active{background:var(--red);border-color:var(--red);}
+.search-box{
+  display:flex;align-items:center;gap:8px;
+  background:var(--iv);border:1.5px solid var(--ivd);
+  border-radius:24px;padding:8px 16px;
+  transition:border-color 0.2s;
+}
+.search-box:focus-within{border-color:var(--or);}
+.search-box input{
+  border:none;background:transparent;outline:none;
+  font-family:'Cormorant Garamond',serif;font-size:1rem;
+  color:var(--bx);width:180px;
+}
+.search-box input::placeholder{color:rgba(74,10,18,0.3);}
+.search-icon{color:var(--ord);font-size:0.9rem;}
+
+/* Export button */
+.btn-export{
+  padding:9px 22px;
+  background:linear-gradient(135deg,var(--ord),var(--or));
+  border:none;border-radius:24px;
+  color:#fff;font-family:'Cinzel',serif;
+  font-size:0.62rem;letter-spacing:0.12em;
+  cursor:pointer;transition:transform 0.2s;
+}
+.btn-export:hover{transform:translateY(-1px);}
+
+/* Table */
+.table-wrap{
+  background:var(--iv);
+  border-radius:14px;
+  border:1px solid rgba(201,168,76,0.2);
+  overflow:hidden;
+  box-shadow:0 4px 24px rgba(74,10,18,0.08);
+}
+.table-head{
+  display:grid;
+  grid-template-columns: 36px 1fr 1fr 130px 100px 100px;
+  gap:0;
+  background:var(--bx);
+  padding:14px 20px;
+}
+.th{
+  font-family:'Cinzel',serif;font-size:0.58rem;
+  letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--orl);
+}
+.table-body{max-height:480px;overflow-y:auto;}
+.table-row{
+  display:grid;
+  grid-template-columns: 36px 1fr 1fr 130px 100px 100px;
+  gap:0;
+  padding:14px 20px;
+  border-bottom:1px solid var(--ivm);
+  align-items:center;
+  transition:background 0.15s;
+  animation:rowIn 0.4s ease both;
+}
+@keyframes rowIn{from{opacity:0;transform:translateX(-8px);}to{opacity:1;transform:none;}}
+.table-row:hover{background:var(--ivm);}
+.table-row:last-child{border-bottom:none;}
+.row-num{
+  font-family:'Cinzel',serif;font-size:0.7rem;
+  color:var(--ord);opacity:0.6;
+}
+.row-name{
+  font-weight:600;font-size:1.05rem;color:var(--bx);
+}
+.row-contact{
+  font-style:italic;font-size:0.88rem;color:var(--bl);
+  display:flex;flex-direction:column;gap:1px;
+}
+.row-date{font-size:0.8rem;color:var(--bl);opacity:0.7;}
+.row-status{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:5px 14px;border-radius:20px;
+  font-family:'Cinzel',serif;font-size:0.58rem;
+  letter-spacing:0.1em;text-transform:uppercase;font-weight:600;
+  width:fit-content;
+}
+.status-present{background:rgba(45,106,79,0.12);color:var(--green);border:1px solid rgba(45,106,79,0.3);}
+.status-absent{background:rgba(193,18,31,0.1);color:var(--red);border:1px solid rgba(193,18,31,0.25);}
+.row-wish{
+  font-style:italic;font-size:0.82rem;color:var(--bl);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  max-width:90px;cursor:pointer;
+  title:attr(data-wish);
+}
+
+/* Empty state */
+.empty-state{
+  text-align:center;padding:60px 24px;
+  color:var(--bl);
+}
+.empty-icon{font-size:3rem;display:block;margin-bottom:12px;opacity:0.4;}
+.empty-title{
+  font-family:'Cinzel',serif;font-size:0.8rem;
+  letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--ord);margin-bottom:6px;
+}
+.empty-sub{font-style:italic;font-size:0.95rem;opacity:0.6;}
+
+/* Modal vœu */
+.modal-overlay{
+  display:none;position:fixed;inset:0;
+  background:rgba(74,10,18,0.6);backdrop-filter:blur(6px);
+  z-index:200;align-items:center;justify-content:center;
+}
+.modal-overlay.open{display:flex;}
+.modal-box{
+  background:var(--iv);border-radius:16px;
+  border:2px solid var(--or);
+  padding:36px;max-width:480px;width:92vw;
+  box-shadow:0 24px 80px rgba(74,10,18,0.35);
+  position:relative;
+}
+.modal-close{
+  position:absolute;top:14px;right:16px;
+  background:none;border:none;font-size:1.4rem;
+  color:var(--bl);cursor:pointer;line-height:1;
+}
+.modal-name{
+  font-family:'Great Vibes',cursive;
+  font-size:2rem;color:var(--bm);margin-bottom:4px;
+}
+.modal-label{
+  font-family:'Cinzel',serif;font-size:0.6rem;
+  letter-spacing:0.2em;color:var(--ord);
+  text-transform:uppercase;margin-bottom:12px;
+}
+.modal-wish{
+  font-style:italic;font-size:1.05rem;color:var(--bx);
+  line-height:1.8;padding:16px;
+  background:var(--ivm);border-radius:8px;
+  border-left:3px solid var(--or);
+}
+.modal-no-wish{color:var(--bl);opacity:0.5;font-style:italic;}
+
+/* Responsive */
+@media(max-width:768px){
+  .stats-grid{grid-template-columns:1fr;}
+  .table-head,.table-row{grid-template-columns:28px 1fr 1fr 80px;}
+  .th:nth-child(4),.row-date,
+  .th:last-child,.row-wish{display:none;}
+  .dash-header{padding:16px 20px;}
+  .dash-main{padding:24px 16px;}
+  .search-box input{width:120px;}
+}
+@media(max-width:480px){
+  .table-head,.table-row{grid-template-columns:24px 1fr 80px;}
+  .th:nth-child(3),.row-contact{display:none;}
+}
+</style>
 </head>
-<body></body>
+<body>
+
+<!-- ══ ÉCRAN DE CONNEXION ══ -->
+<div id="loginScreen">
+  <div class="login-card">
+    <span class="login-crown">👑</span>
+    <div class="login-title">Espace Mariés</div>
+    <div class="login-sub">Merveille &amp; Dannick · 09 Mai 2026</div>
+
+    <label class="login-label">Mot de passe</label>
+    <input class="login-input" type="password" id="loginPwd"
+           placeholder="Entrez le mot de passe"
+           onkeydown="if(event.key==='Enter')doLogin()"/>
+
+    <button class="login-btn" onclick="doLogin()">✦ &nbsp; Accéder au dashboard &nbsp; ✦</button>
+    <div class="login-error" id="loginError">❌ &nbsp; Mot de passe incorrect</div>
+  </div>
+</div>
+
+<!-- ══ DASHBOARD ══ -->
+<div id="dashboard">
+
+  <!-- Header -->
+  <header class="dash-header">
+    <div class="dash-brand">
+      <span class="dash-crown-icon">👑</span>
+      <div class="dash-brand-text">
+        <div class="dash-brand-name">Merveille &amp; Dannick</div>
+        <div class="dash-brand-sub">Dashboard RSVP · La Dot Royale</div>
+      </div>
+    </div>
+    <div class="dash-header-right">
+      <div class="dash-date" id="liveDate"></div>
+      <button class="btn-logout" onclick="logout()">🚪 &nbsp; Déconnexion</button>
+    </div>
+  </header>
+
+  <main class="dash-main">
+
+    <!-- Stats -->
+    <div class="stats-grid" id="statsGrid">
+      <div class="stat-card total">
+        <span class="stat-icon">📋</span>
+        <div class="stat-num" id="statTotal">0</div>
+        <div class="stat-label">Réponses totales</div>
+      </div>
+      <div class="stat-card present">
+        <span class="stat-icon">✅</span>
+        <div class="stat-num" id="statPresent">0</div>
+        <div class="stat-label">Présences confirmées</div>
+      </div>
+      <div class="stat-card absent">
+        <span class="stat-icon">❌</span>
+        <div class="stat-num" id="statAbsent">0</div>
+        <div class="stat-label">Désistements</div>
+      </div>
+    </div>
+
+    <!-- Contrôles -->
+    <div class="table-controls">
+      <div class="filter-tabs">
+        <button class="filter-tab active" data-filter="all" onclick="setFilter('all',this)">Tous</button>
+        <button class="filter-tab green" data-filter="oui" onclick="setFilter('oui',this)">✅ Présents</button>
+        <button class="filter-tab red" data-filter="non" onclick="setFilter('non',this)">❌ Absents</button>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="searchInput" placeholder="Rechercher un invité…" oninput="renderTable()"/>
+        </div>
+        <button class="btn-export" onclick="exportCSV()">⬇️ &nbsp; Exporter CSV</button>
+        <button class="btn-export" style="background:linear-gradient(135deg,#2D6A4F,#52B788);" onclick="addDemo()">+ &nbsp; Ajouter test</button>
+      </div>
+    </div>
+
+    <!-- Tableau -->
+    <div class="table-wrap">
+      <div class="table-head">
+        <div class="th">#</div>
+        <div class="th">Invité</div>
+        <div class="th">Contact</div>
+        <div class="th">Date de réponse</div>
+        <div class="th">Statut</div>
+        <div class="th">Vœu</div>
+      </div>
+      <div class="table-body" id="tableBody"></div>
+    </div>
+
+  </main>
+</div>
+
+<!-- ══ MODAL VŒU ══ -->
+<div class="modal-overlay" id="wishModal" onclick="closeModal(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="document.getElementById('wishModal').classList.remove('open')">✕</button>
+    <div class="modal-name" id="modalName"></div>
+    <div class="modal-label">Message de vœux</div>
+    <div class="modal-wish" id="modalWish"></div>
+  </div>
+</div>
+
+<script>
+/* ══ CONFIG ══ */
+const PASSWORD = 'merveille2026'; // ← modifiez ce mot de passe
+const STORAGE_KEY = 'rsvp_list';
+
+let currentFilter = 'all';
+
+/* ══ LOGIN ══ */
+function doLogin(){
+  const pwd = document.getElementById('loginPwd').value;
+  if(pwd === PASSWORD){
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('dashboard').style.display = 'block';
+    initDashboard();
+  } else {
+    const err = document.getElementById('loginError');
+    err.style.display = 'block';
+    setTimeout(()=>err.style.display='none', 3000);
+  }
+}
+
+function logout(){
+  document.getElementById('loginScreen').style.display = 'flex';
+  document.getElementById('dashboard').style.display = 'none';
+  document.getElementById('loginPwd').value = '';
+}
+
+/* ══ INIT ══ */
+function initDashboard(){
+  updateLiveDate();
+  setInterval(updateLiveDate, 60000);
+  renderTable();
+}
+
+function updateLiveDate(){
+  const now = new Date();
+  document.getElementById('liveDate').textContent =
+    now.toLocaleDateString('fr-FR',{weekday:'long',day:'2-digit',month:'long',year:'numeric'});
+}
+
+/* ══ DONNÉES ══ */
+function getData(){
+  return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+}
+
+/* ══ FILTRE ══ */
+function setFilter(f, btn){
+  currentFilter = f;
+  document.querySelectorAll('.filter-tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  renderTable();
+}
+
+/* ══ RENDU TABLEAU ══ */
+function renderTable(){
+  const data = getData();
+  const search = (document.getElementById('searchInput')?.value || '').toLowerCase();
+
+  const filtered = data.filter(r => {
+    const matchFilter = currentFilter === 'all' || r.presence === currentFilter;
+    const matchSearch = !search ||
+      (r.prenom+' '+r.nom).toLowerCase().includes(search) ||
+      (r.email||'').toLowerCase().includes(search) ||
+      (r.phone||'').toLowerCase().includes(search);
+    return matchFilter && matchSearch;
+  });
+
+  // Stats
+  const total = data.length;
+  const present = data.filter(r=>r.presence==='oui').length;
+  const absent = data.filter(r=>r.presence==='non').length;
+  animateNum('statTotal', total);
+  animateNum('statPresent', present);
+  animateNum('statAbsent', absent);
+
+  const body = document.getElementById('tableBody');
+
+  if(filtered.length === 0){
+    body.innerHTML = `
+      <div class="empty-state">
+        <span class="empty-icon">📭</span>
+        <div class="empty-title">${data.length===0 ? 'Aucune réponse pour l\'instant' : 'Aucun résultat'}</div>
+        <p class="empty-sub">${data.length===0 ? 'Les confirmations apparaîtront ici dès que vos invités répondront.' : 'Essayez une autre recherche.'}</p>
+      </div>`;
+    return;
+  }
+
+  body.innerHTML = filtered.map((r, i) => `
+    <div class="table-row" style="animation-delay:${i*40}ms">
+      <div class="row-num">${i+1}</div>
+      <div class="row-name">${r.prenom} ${r.nom}</div>
+      <div class="row-contact">
+        <span>${r.email || '—'}</span>
+        <span style="font-size:0.8rem;opacity:0.7;">${r.phone || '—'}</span>
+      </div>
+      <div class="row-date">${r.date || '—'}</div>
+      <div>
+        <span class="row-status ${r.presence==='oui'?'status-present':'status-absent'}">
+          ${r.presence==='oui'?'✅ Présent':'❌ Absent'}
+        </span>
+      </div>
+      <div class="row-wish" title="${(r.wishes||'').replace(/"/g,"'")}"
+           onclick="openModal('${(r.prenom+' '+r.nom).replace(/'/g,"\\'")}','${(r.wishes||'').replace(/'/g,"\\'").replace(/\n/g,' ')}')">
+        ${r.wishes ? '💬 Voir' : '<span style="opacity:0.35">—</span>'}
+      </div>
+    </div>
+  `).join('');
+}
+
+/* ══ ANIMATION COMPTEUR ══ */
+function animateNum(id, target){
+  const el = document.getElementById(id);
+  if(!el) return;
+  const start = parseInt(el.textContent) || 0;
+  const diff = target - start;
+  const dur = 600;
+  const t0 = performance.now();
+  function step(t){
+    const p = Math.min((t-t0)/dur, 1);
+    el.textContent = Math.round(start + diff * p);
+    if(p < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+/* ══ MODAL VŒU ══ */
+function openModal(name, wish){
+  document.getElementById('modalName').textContent = name;
+  const wEl = document.getElementById('modalWish');
+  wEl.innerHTML = wish
+    ? wish
+    : '<span class="modal-no-wish">Aucun message laissé.</span>';
+  document.getElementById('wishModal').classList.add('open');
+}
+function closeModal(e){
+  if(e.target.id==='wishModal') document.getElementById('wishModal').classList.remove('open');
+}
+
+/* ══ EXPORT CSV ══ */
+function exportCSV(){
+  const data = getData();
+  if(!data.length){ alert('Aucune donnée à exporter.'); return; }
+  const header = ['Prénom','Nom','Email','Téléphone','Présence','Date','Message de vœux'];
+  const rows = data.map(r=>[r.prenom,r.nom,r.email,r.phone,r.presence==='oui'?'Présent':'Absent',r.date,(r.wishes||'').replace(/\n/g,' ')]);
+  const csv = [header,...rows].map(r=>r.map(c=>`"${c||''}"`).join(',')).join('\n');
+  const blob = new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href=url; a.download='rsvp_merveille_dannick.csv'; a.click();
+  URL.revokeObjectURL(url);
+}
+
+/* ══ DONNÉES DE DÉMO ══ */
+const demoNames = [
+  {p:'Aurelie',n:'Mbida',e:'aurelie@email.com',ph:'+237 699 001 122',pr:'oui',w:'Que Dieu bénisse votre union ! Longue vie aux mariés 🙏'},
+  {p:'Christian',n:'Fouda',e:'chris@email.com',ph:'+237 677 445 566',pr:'oui',w:'Félicitations à vous deux !'},
+  {p:'Grace',n:'Onana',e:'grace@email.com',ph:'',pr:'non',w:'Je suis vraiment désolée, je serai en voyage ce jour là. Je vous souhaite tout le bonheur du monde !'},
+  {p:'Patrick',n:'Eto\'o',e:'patrick@email.com',ph:'+237 655 887 744',pr:'oui',w:''},
+  {p:'Sandra',n:'Biya',e:'sandra@email.com',ph:'+237 690 112 233',pr:'oui',w:'Que votre amour soit éternel comme les étoiles ✨'},
+];
+let demoIndex = 0;
+function addDemo(){
+  const d = demoNames[demoIndex % demoNames.length];
+  demoIndex++;
+  const list = getData();
+  list.push({
+    id:Date.now(),
+    prenom:d.p,nom:d.n,email:d.e,phone:d.ph,
+    presence:d.pr,wishes:d.w,
+    date:new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'})
+  });
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+  renderTable();
+}
+
+/* ══ RAFRAÎCHISSEMENT AUTO (toutes les 30s) ══ */
+setInterval(()=>{ if(document.getElementById('dashboard').style.display!=='none') renderTable(); }, 30000);
+</script>
+</body>
 </html>
