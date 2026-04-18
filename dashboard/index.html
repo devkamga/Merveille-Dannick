@@ -411,7 +411,6 @@ body{
           <input type="text" id="searchInput" placeholder="Rechercher un invité…" oninput="renderTable()"/>
         </div>
         <button class="btn-export" onclick="exportCSV()">⬇️ &nbsp; Exporter CSV</button>
-        <button class="btn-export" style="background:linear-gradient(135deg,#2D6A4F,#52B788);" onclick="addDemo()">+ &nbsp; Ajouter test</button>
       </div>
     </div>
 
@@ -452,6 +451,7 @@ let currentFilter = 'all';
 function doLogin(){
   const pwd = document.getElementById('loginPwd').value;
   if(pwd === PASSWORD){
+    sessionStorage.setItem('md_auth','1');
     document.getElementById('loginScreen').style.display = 'none';
     document.getElementById('dashboard').style.display = 'block';
     initDashboard();
@@ -463,9 +463,16 @@ function doLogin(){
 }
 
 function logout(){
+  sessionStorage.removeItem('md_auth');
   document.getElementById('loginScreen').style.display = 'flex';
   document.getElementById('dashboard').style.display = 'none';
   document.getElementById('loginPwd').value = '';
+}
+
+if(sessionStorage.getItem('md_auth')==='1'){
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('dashboard').style.display = 'block';
+  initDashboard();
 }
 
 /* ══ INIT ══ */
